@@ -1,7 +1,7 @@
 import express from 'express';
 import { Worker } from 'worker_threads';
 const app = express();
-const port = 3000;
+const port = 5678;
 
 app.get('/fibonacci/:n', (req, res) => {
     const n = parseInt(req.params.n);
@@ -9,12 +9,14 @@ app.get('/fibonacci/:n', (req, res) => {
     // 워커 스레드를 통해 CPU 집약적인 작업을 백그라운드에서 처리하고, 메인 스레드에서 다른 요청을 병렬적으로 처리할 수 있음.
     const worker = new Worker('./worker.js');
     worker.on('message', (result) => {
-        console.log(`Worker Thread End`);
-        console.log(`Get /fibonacci/${n} start`);
+        console.log(`MainThread received message`);
         return res.send(`Fibonacci(${n}) = ${result}`);
     });
+    worker.on('exit', (value) => {
+        console.log(`Worker Thread End`);
+    });
 
-    console.log(`Worker Thread Start)`);
+    console.log(`Worker Thread Start`);
     worker.postMessage(n);
 });
 

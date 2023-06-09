@@ -1,0 +1,13 @@
+{
+  "name": "NodeJS_Express_Worker",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/FullstackIceberg/NodeJS_Express_Worker.git",
+  "author": "Kevin <fullstack.iceberg@gmail.com>",
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "express": "^4.18.2",
+    "generic-pool": "^3.9.0"
+  }
+}
